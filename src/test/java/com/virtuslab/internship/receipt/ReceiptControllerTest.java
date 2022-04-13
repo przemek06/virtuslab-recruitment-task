@@ -6,8 +6,6 @@ import com.virtuslab.internship.basket.BasketDto;
 import com.virtuslab.internship.product.Product;
 import com.virtuslab.internship.product.ProductDb;
 import com.virtuslab.internship.product.ProductDto;
-import com.virtuslab.internship.receipt.Receipt;
-import com.virtuslab.internship.receipt.ReceiptGenerator;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -102,7 +100,7 @@ public class ReceiptControllerTest {
         int status = result.getResponse().getStatus();
         assertEquals(404, status);
         String content = result.getResponse().getContentAsString();
-        assertEquals(NO_SUCH_PRODUCT_RESPONSE, content);
+        assertEquals(String.format(NO_SUCH_PRODUCT_RESPONSE, "Lasagne"), content);
     }
 
     @Test

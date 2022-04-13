@@ -38,6 +38,6 @@ public class ProductDb {
         if(optionalProduct.isPresent()){
             return optionalProduct.get();
         }
-        else throw new NoSuchProductException();
+        else throw new NoSuchProductException(productName);
     }
 }
