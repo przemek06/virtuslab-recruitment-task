@@ -38,13 +38,6 @@ public class ReceiptControllerTest {
 
     @Test
     void shouldReturnProperReceiptWhenCorrectBasketData() throws Exception {
-        ProductDto productDto1 = new ProductDto("Bread");
-        ProductDto productDto2 = new ProductDto("Bread");
-        ProductDto productDto3 = new ProductDto("Cheese");
-        ProductDto productDto4 = new ProductDto("Steak");
-
-        BasketDto basketDto = new BasketDto(Arrays.asList(productDto1, productDto2, productDto3, productDto4));
-
         Product product1 = productDb.getProduct("Bread");
         Product product2 = productDb.getProduct("Cheese");
         Product product3 = productDb.getProduct("Steak");
@@ -58,6 +51,13 @@ public class ReceiptControllerTest {
 
         Receipt expectedReceipt = receiptGenerator.generate(basket);
 
+        ProductDto productDto1 = new ProductDto("Bread");
+        ProductDto productDto2 = new ProductDto("Bread");
+        ProductDto productDto3 = new ProductDto("Cheese");
+        ProductDto productDto4 = new ProductDto("Steak");
+
+        BasketDto basketDto = new BasketDto(Arrays.asList(productDto1, productDto2, productDto3, productDto4));
+
         ObjectMapper objectMapper = new ObjectMapper();
         String basketJson = objectMapper.writeValueAsString(basketDto);
 
@@ -68,12 +68,12 @@ public class ReceiptControllerTest {
                         .content(basketJson)
                         .accept(MediaType.APPLICATION_JSON))
                 .andReturn();
+
         int status = result.getResponse().getStatus();
         assertEquals(200, status);
+
         String jsonContent = result.getResponse().getContentAsString();
-
         Receipt responseReceipt = objectMapper.readValue(jsonContent, Receipt.class);
-
         assertEquals(expectedReceipt, responseReceipt);
 
     }

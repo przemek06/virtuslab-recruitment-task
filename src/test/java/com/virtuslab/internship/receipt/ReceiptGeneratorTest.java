@@ -71,16 +71,19 @@ class ReceiptGeneratorTest {
         var bread2 = productDb.getProduct("Bread");
         var cereal = productDb.getProduct("Cereals");
         var cheese = productDb.getProduct("Cheese");
+
         var expectedTotalPrice = bread1.price().multiply(BigDecimal.valueOf(2))
                 .add(cereal.price().multiply(BigDecimal.valueOf(3)))
                 .add(cheese.price())
                 .multiply(BigDecimal.valueOf(0.85));
+
         cart.addProduct(bread1);
         cart.addProduct(bread2);
         cart.addProduct(cereal);
         cart.addProduct(cereal);
         cart.addProduct(cereal);
         cart.addProduct(cheese);
+
         var receiptGenerator = new ReceiptGenerator();
         var receipt = receiptGenerator.generate(cart);
 
@@ -120,14 +123,17 @@ class ReceiptGeneratorTest {
         var bread2 = productDb.getProduct("Bread");
         var cereal = productDb.getProduct("Cereals");
         var cheese = productDb.getProduct("Cheese");
+
         var expectedTotalPrice = bread1.price().multiply(BigDecimal.valueOf(2))
                 .add(cereal.price()).add(cheese.price().multiply(BigDecimal.valueOf(2)))
                 .multiply(BigDecimal.valueOf(0.9*0.85));
+
         cart.addProduct(bread1);
         cart.addProduct(bread2);
         cart.addProduct(cereal);
         cart.addProduct(cheese);
         cart.addProduct(cheese);
+
         var receiptGenerator = new ReceiptGenerator();
         var receipt = receiptGenerator.generate(cart);
 

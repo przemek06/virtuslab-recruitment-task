@@ -28,10 +28,10 @@ public class ReceiptGenerator {
 
 
     /**
-     * Define the discounts and the order in which they should be applied
+     * Define the discounts and the order in which they should be applied.
      */
-    private void initDiscountChain(){
-        discountChain=new LinkedList<>();
+    private void initDiscountChain() {
+        discountChain = new LinkedList<>();
         discountChain.add(new FifteenPercentDiscount());
         discountChain.add(new TenPercentDiscount());
     }
@@ -39,13 +39,14 @@ public class ReceiptGenerator {
     /**
      * Convert basket of products to list of receipt entries, use them to generate a receipt and then apply all the
      * discounts from discount chain to this receipt.
-     * @param basket basket of products used to create the receipt
+     *
+     * @param basket of products used to create the receipt.
      * @return receipt created from the basket of products with all discounts from discount chain applied.
      */
     public Receipt generate(Basket basket) {
         List<ReceiptEntry> receiptEntries = convertBasketToReceiptEntries(basket);
-        Receipt receipt =  new Receipt(receiptEntries);
-        for(Discount discount: discountChain){
+        Receipt receipt = new Receipt(receiptEntries);
+        for (Discount discount : discountChain) {
             receipt = discount.apply(receipt);
         }
         return receipt;
@@ -53,14 +54,15 @@ public class ReceiptGenerator {
 
     /**
      * Convert basket of product to a list of receipt entries that are needed to create a receipt.
-     * @param basket basket that's supposed to be converted to the list of receipt entries.
-     * @return list of receipt entries created from the basket
+     *
+     * @param basket that's supposed to be converted to the list of receipt entries.
+     * @return list of receipt entries created from the basket.
      */
-    private List<ReceiptEntry> convertBasketToReceiptEntries(Basket basket){
+    private List<ReceiptEntry> convertBasketToReceiptEntries(Basket basket) {
         return basket.getProducts().stream()
                 .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
                 .entrySet()
-                .stream().map(productEntry->new ReceiptEntry(productEntry.getKey(), productEntry.getValue().intValue()))
+                .stream().map(productEntry -> new ReceiptEntry(productEntry.getKey(), productEntry.getValue().intValue()))
                 .collect(Collectors.toList());
     }
 }

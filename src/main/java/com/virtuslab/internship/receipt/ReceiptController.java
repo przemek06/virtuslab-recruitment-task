@@ -16,7 +16,7 @@ import static com.virtuslab.internship.receipt.Constants.BASKET_NOT_VALID_RESPON
 import static com.virtuslab.internship.receipt.Constants.NO_SUCH_PRODUCT_RESPONSE;
 
 /**
- * Class which exposes to the web REST endpoints representing all of receipt's and basket's logic
+ * Class which exposes to the web REST endpoints representing all of receipt's and basket's logic.
  */
 @RestController
 public class ReceiptController {
@@ -32,12 +32,12 @@ public class ReceiptController {
      * service layer for processing. Return receipt received from service layer, wrapped in response entity with status
      * 200 OK.
      *
-     * @param cart Basket information to be processed
-     * @return Receipt based on the basket's information
+     * @param basket information to be processed.
+     * @return Receipt based on the basket's information.
      */
     @PostMapping(value = "/api/receipt", produces = MimeTypeUtils.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Receipt> createReceipt(@RequestBody @Valid BasketDto cart) {
-        return ResponseEntity.ok(receiptService.createReceipt(cart));
+    public ResponseEntity<Receipt> createReceipt(@RequestBody @Valid BasketDto basket) {
+        return ResponseEntity.ok(receiptService.createReceipt(basket));
     }
 
     /**
